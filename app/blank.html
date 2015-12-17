@@ -1,25 +1,89 @@
-<!DOCTYPE html>
-<html lang="en" >
-  <head>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
     <title>Angular Material - Starter App</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+    <link href="bower_components/angular-material/angular-material.css" rel="stylesheet" />
+
+    <link href="assets/md-data-table/md-data-table.css" rel="stylesheet" />
+
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
 
-    <link rel="stylesheet" href="assets/app.css"/>
-  </head>
-
-  <body ng-app="starterApp" >
 
 
 
-  <script src="./bower_components/angular/angular.js"></script>
+    <link rel="stylesheet" href="assets/app.css" />
+</head>
 
-  <script type="text/javascript">
-      angular
-          .module('starterApp', [  ])
-          .run(function($log){
-            $log.debug("startApp  running ");
-          });
-    </script>
+<body ng-app="app" layout="column" ng-controller="ClientController as cl">
 
-  </body>
+
+
+    <script src="./bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+
+    <script src="assets/md-data-table/md-data-table.js"></script>
+
+    <script src="src/clients/Clients.js"></script>
+    <script src="src/clients/ClientController.js"></script>
+    <script src="src/clients/ClientService.js"></script>
+    <script src="src/clients/view/addItemController.js"></script>
+
+
+    <script src="src/app.js"></script>
+
+    <md-toolbar layout="row">
+        <h1>Angular Material</h1>
+    </md-toolbar>
+
+    <div flex layout="row">
+        <!--<md-sidenav md-is-locked-open="true" class="md-whiteframe-z2" md-component-id="left">-->
+        <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="left">
+
+            <md-list>
+
+                <md-item ng-repeat="it in cl.clients">
+                    <md-button ng-click="cl.selectClient(it)" ng-class="{'selected': it === cl.selected}">
+                        <md-icon md-svg-icon="{{it.avatar}}" class="avatar"></md-icon>
+                        {{it.name}}
+                    </md-button>
+                </md-item>
+
+            </md-list>
+
+        </md-sidenav>
+        <md-content flex id="content">
+
+            <!--AQUI-->
+
+            <md-card ng-include="'./src/clients/view/client-table.html'"></md-card>
+
+            <md-icon md-svg-icon="{{cl.selected.avatar}}" class="avatar"></md-icon>
+            <h2>{{cl.selected.name}}</h2>
+            <p>{{cl.selected.content}}</p>
+
+
+            el contenido
+            <md-button class="share" md-no-ink ng-click="cl.share($event)">
+                <md-icon md-svg-icon="share" aria-label="share"></md-icon>
+               
+
+            </md-button>
+
+        </md-content>
+
+
+    </div>
+
+
+   
+
+</body>
 </html>
